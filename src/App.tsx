@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ListProfile } from "./modules/Profile"
+import {OwnProfile} from "./modules/OwnProfile";
+import {Route, Routes} from "react-router";
+
+
 
 function App() {
+    const allPage = () => (
+        <>
+            <Route path={"/profiles"} element={<ListProfile/>}/>
+            <Route path={"/toAddNewProfile"} element={<OwnProfile/>}/>
+        </>
+    )
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app container">
+        <Routes>
+            {allPage()}
+        </Routes>
     </div>
   );
 }

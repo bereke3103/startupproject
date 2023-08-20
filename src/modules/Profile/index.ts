@@ -1,0 +1,1 @@
+export { ListProfile } from './components/ListProfile'
