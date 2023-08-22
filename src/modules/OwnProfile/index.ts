@@ -1,1 +1,0 @@
-export {OwnProfile} from './components/OwnProfile'

@@ -1,14 +1,14 @@
 
 import React, {useEffect, useState} from "react";
-import Profile from "./Profile";
+import ItemProfile from "./ItemProfile";
 import style from './profileStyle.module.css'
-import Button from "../../../components/Button/Button";
+import ButtonComp from "../../../components/Button/ButtonComp";
 import {NavigateFunction, useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsersAsync} from "../../../store/features/userClice";
 import {ThunkDispatch} from "redux-thunk";
 import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
-import Header from "../../../components/Layout/Header";
+import Layout from "../../../components/Layout/Layout";
  export const ListProfile = () => {
 
      const dispatch = useAppDispatch()
@@ -27,7 +27,11 @@ import Header from "../../../components/Layout/Header";
          navigate("/toAddNewProfile")
      }
 
-
+    const toPersonalProfile = (id: number) => {
+        if(id){
+            navigate(`/personalProfile/${id}`)
+        }
+    }
 
      return (
         <div className={style.block_profiles}>
@@ -36,15 +40,19 @@ import Header from "../../../components/Layout/Header";
             </div>
             <div className={style.allProfile}>
                 {users.map(user => (
-                    <Profile
+                    <ItemProfile
+                        toPersonalProfile={toPersonalProfile}
                         key={user.id}
+                        lastname={user.lastname}
+                        firstname={user.firstname}
                         nickname={user.nickname}
                         stack={user.stack}
-                        workplace={user.workplace}/>
+                        workplace={user.workplace}
+                        id={user.id}/>
                 ))}
             </div>
             <div className={"toAddProfile"}>
-                <Button onClick={toAddNewProfile} label={"Добавить свой профиль"}/>
+                <ButtonComp onClick={toAddNewProfile} label={"Добавить свой профиль"}/>
             </div>
         </div>
     )

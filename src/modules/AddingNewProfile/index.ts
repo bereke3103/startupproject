@@ -1,0 +1,1 @@
+export {AddingNewProfile} from './components/AddingNewProfile'

@@ -1,4 +1,5 @@
 .list__inputs {
+    margin-left: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;

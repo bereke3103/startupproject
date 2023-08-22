@@ -1,0 +1,18 @@
+header {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #e6f4ff;
+}
+
+.header__items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.headet_item {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-family: cursive;
+}

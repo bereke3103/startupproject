@@ -1,4 +1,6 @@
 .block_profiles {
+    margin-left: 250px;
+    margin-top: 46px;
     display: flex;
     flex-direction: column;
     align-items: center;

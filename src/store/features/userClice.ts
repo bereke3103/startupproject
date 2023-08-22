@@ -20,10 +20,18 @@ export interface User {
 
 interface UserState {
     users: User[]
+    user: User
 }
 
 const initialState: UserState = {
-    users: []
+    users: [],
+    user: {
+        nickname: "",
+        firstname: "",
+        lastname: "",
+        workplace: "",
+        stack: ""
+    }
 }
 
 export const getUsersAsync = createAsyncThunk("api/User", async(thunkAPI) => {
@@ -41,27 +49,27 @@ export const createUserThunk = createAsyncThunk("", async(user: IUserCreate, {re
     }
 })
 
+export const getUserById = createAsyncThunk("", async(id: number, {rejectWithValue}) => {
+    try {
+        const response = await axios.get(`https://localhost:7141/api/User/getuserById?id=${id}`)
+        return response.data;
+    }catch (e: any) {
+        rejectWithValue(e.message)
+    }
+})
+
 export const PersonSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // addUser(state, action: PayloadAction<IUserCreate>){
-        //     createUserThunk({
-        //         nickname: state.users.,
-        //         firstname: action.payload.firstname,
-        //         lastname: action.payload.lastname,
-        //         workplace: action.payload.workplace,
-        //         stack: action.payload.stack,
-        //     })
-        //     // state.users.push();
-        // }
     },
     extraReducers: (builder) => {
         builder.addCase(getUsersAsync.fulfilled, (state, action) => {
             state.users = action.payload;
         })
+        builder.addCase(getUserById.fulfilled, (state, action) => {
+            state.user = action.payload;
+        })
     }
 })
-
-// export const {addUser} = PersonSlice.actions;
 export const userReducer = PersonSlice.reducer;

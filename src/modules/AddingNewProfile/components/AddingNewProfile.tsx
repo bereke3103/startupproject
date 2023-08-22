@@ -1,11 +1,11 @@
-import Input from "./Input/Input";
+import InputComp from "./Input/InputComp";
 import {useState} from "react";
 import style from './Input/style.module.css'
-import Button from "../../../components/Button/Button";
+import ButtonComp from "../../../components/Button/ButtonComp";
 import {createUserThunk, IUserCreate} from "../../../store/features/userClice";
 import {useAppDispatch} from "../../../hooks/useTypedSelector";
 import {useNavigate} from "react-router";
-export const OwnProfile = () => {
+export const AddingNewProfile = () => {
     const navigate = useNavigate();
 
     const [nickname, setNick] = useState<string>("");
@@ -37,12 +37,12 @@ export const OwnProfile = () => {
 
     return (
         <div className={style.list__inputs}>
-            <Input label={"Ник"} onChange={e => setNick(e.target.value)}/>
-            <Input label={"Имя"} onChange={e => setFirstName(e.target.value)}/>
-            <Input label={"Фамилия"} onChange={e => setLastName(e.target.value)}/>
-            <Input label={"Рабочее место"} onChange={e => setWorkplace(e.target.value)}/>
-            <Input label={"Основной инструмент"} onChange={e => setStack(e.target.value)}/>
-            <Button label={"Добавить"} onClick={toAddNewProfile}/>
+            <InputComp label={"Ник"} onChange={e => setNick(e.target.value)}/>
+            <InputComp label={"Имя"} onChange={e => setFirstName(e.target.value)}/>
+            <InputComp label={"Фамилия"} onChange={e => setLastName(e.target.value)}/>
+            <InputComp label={"Рабочее место"} onChange={e => setWorkplace(e.target.value)}/>
+            <InputComp label={"Основной инструмент"} onChange={e => setStack(e.target.value)}/>
+            <ButtonComp label={"Добавить"} onClick={toAddNewProfile}/>
         </div>
     )
 }
