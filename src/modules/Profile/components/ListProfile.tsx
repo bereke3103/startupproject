@@ -1,34 +1,33 @@
-import dataUsers from '../../../store/action-creators/profileUserExample.json'
+
 import React, {useEffect, useState} from "react";
 import Profile from "./Profile";
 import style from './profileStyle.module.css'
 import Button from "../../../components/Button/Button";
 import {NavigateFunction, useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {fetchUsers} from "../../../store/action-creators/user";
+import {getUsersAsync} from "../../../store/features/userClice";
+import {ThunkDispatch} from "redux-thunk";
+import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
+import Header from "../../../components/Layout/Header";
  export const ListProfile = () => {
-     const { users, error, loading } = useTypedSelector(state=> state.user)
-    const dispatch: any = useDispatch();
 
-     // useEffect(() => {
-     //     dispatch(fetchUsers())
-     // }, [])
+     const dispatch = useAppDispatch()
 
-     const [exampleOfUsers, setExampleOfUsers] = useState(dataUsers)
-     const navigate :NavigateFunction = useNavigate();
+     const users = useAppSelector(state=>state.user.users);
+     console.log({users})
+
+     useEffect(() => {
+         dispatch(getUsersAsync())
+     }, []);
+
+     const [exampleOfUsers, setExampleOfUsers] = useState(users)
+     const navigate = useNavigate();
      function toAddNewProfile(e: any) {
         e.preventDefault();
          navigate("/toAddNewProfile")
      }
 
-     // if(loading) {
-     //     return <h1>Идет загрузка</h1>
-     // }
-     //
-     // if(error) {
-     //     return <h1>{error}</h1>
-     // }
+
 
      return (
         <div className={style.block_profiles}>
