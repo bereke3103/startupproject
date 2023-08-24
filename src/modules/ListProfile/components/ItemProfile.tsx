@@ -11,7 +11,7 @@ type ProfileProps = {
 }
 
 const ItemProfile = ({lastname, nickname, workplace, stack, id, toPersonalProfile, firstname} : ProfileProps) => {
-    console.log({workplace})
+
     return (
        <div onClick={() => toPersonalProfile(id)} className={style.profile}>
            <h1 className="nickname"> <span>Ник:</span> {nickname}</h1>

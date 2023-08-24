@@ -1,0 +1,6 @@
+.block__authorizaton {
+    height: 100vh;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}

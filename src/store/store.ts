@@ -1,11 +1,13 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {userReducer} from "./features/userClice";
+import {userReducer} from "./features/profilesSlice";
 import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
+import {loginReducer} from "./features/loginSlice";
 
 export const store = configureStore({
     reducer: {
-        user: userReducer
+        user: userReducer,
+        login: loginReducer
     }
 })
 

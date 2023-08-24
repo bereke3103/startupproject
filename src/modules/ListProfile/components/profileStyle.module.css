@@ -1,5 +1,4 @@
 .block_profiles {
-    margin-left: 250px;
     margin-top: 46px;
     display: flex;
     flex-direction: column;
@@ -17,6 +16,8 @@
 }
 
 .profile {
-    padding: 20px;
+    padding: 30px;
+    border: 1px solid #0000004a;
+    border-radius: 5px;
     cursor: pointer;
 }

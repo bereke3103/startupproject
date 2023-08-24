@@ -1,33 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import { ListProfile } from "./modules/ListProfile"
-import {AddingNewProfile} from "./modules/AddingNewProfile";
-import {Route, Routes} from "react-router";
+import {Navigate, Route, Routes} from "react-router";
 import Layout from "./components/Layout/Layout";
 import Header from "./components/Header/Header";
-import PersonalProfile from "./modules/PersonalProfile/components/PersonalProfile";
+import {AUTH_PAGE, IRoute, MAIN_PAGE, PrivateRoutes, PublicRoutes} from "./routes/routes";
+import Authorization from "./modules/Authorization/Authorization";
+import {useAppSelector} from "./hooks/useTypedSelector";
 
 
 
 function App() {
-    const allPage = () => (
-      <>
-            <Route path={"/"} element={<ListProfile/>}/>
-            <Route path={"/toAddNewProfile"} element={<AddingNewProfile/>}/>
-            <Route path={"/personalProfile/:id"} element={<PersonalProfile/>}/>
-      </>
-    )
-  return (
-      <>
-          <Header/>
+    const isAuth = useAppSelector(state => state.login.token)
+
+    return (
+    <div>
+        {isAuth ?
+        <>
+            <Header/>
             <div className="app container">
                 <Layout>
                     <Routes>
-                            {allPage()}
+                        {PrivateRoutes.map((r: IRoute) => (
+                            <>
+                            <Route path={r.path} element={<r.element/>}/>
+                            <Route path="*" element={< Navigate to={`${MAIN_PAGE}`} replace />}/>
+                            </>
+                        ))}
                     </Routes>
                 </Layout>
             </div>
-      </>
+        </> :
+            <>
+                <Routes>
+                 <Route path={AUTH_PAGE} element={<Authorization/>}/>
+                    <Route path="*" element={< Navigate to={`${AUTH_PAGE}`} />}/>
+                </Routes>
+            </>
+        }
+    </div>
+
   );
 }
 

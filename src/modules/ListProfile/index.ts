@@ -1,1 +1,1 @@
-export { ListProfile } from './components/ListProfile'
+export { ListProfile } from './ListProfile'

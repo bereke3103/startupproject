@@ -2,7 +2,7 @@ import InputComp from "./Input/InputComp";
 import {useState} from "react";
 import style from './Input/style.module.css'
 import ButtonComp from "../../../components/Button/ButtonComp";
-import {createUserThunk, IUserCreate} from "../../../store/features/userClice";
+import {createProfileThunk, IProfileCreate} from "../../../store/features/profilesSlice";
 import {useAppDispatch} from "../../../hooks/useTypedSelector";
 import {useNavigate} from "react-router";
 export const AddingNewProfile = () => {
@@ -19,14 +19,14 @@ export const AddingNewProfile = () => {
 
     const toAddNewProfile = (e:any) => {
         e.preventDefault();
-        const newUser: IUserCreate = {
+        const newUser: IProfileCreate = {
             nickname,
             firstname,
             lastname,
             workplace,
             stack,
         }
-        dispatch(createUserThunk(newUser))
+        dispatch(createProfileThunk(newUser))
         setNick("")
         setFirstName("")
         setLastName("")
