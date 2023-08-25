@@ -3,11 +3,13 @@ import {userReducer} from "./features/profilesSlice";
 import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
 import {loginReducer} from "./features/loginSlice";
+import {registerReducer} from "./features/registerSlice";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        login: loginReducer
+        login: loginReducer,
+        register: registerReducer
     }
 })
 

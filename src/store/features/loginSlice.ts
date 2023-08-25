@@ -14,15 +14,15 @@ const initialState: ILogin = {
     password: "",
     token: "false",
     loading: false,
-    error: null
+    error: ""
 }
 export const loginAsync = createAsyncThunk
-("api/Login/login", async(login: ILogin, {rejectWithValue})=> {
+("api/Login/login", async(login: ILogin, {rejectWithValue, fulfillWithValue})=> {
     try {
         const response = await axios.post("https://localhost:7141/api/Login/login", login);
-        return response.data;
+        return fulfillWithValue(response.data);
     } catch (e: any) {
-        rejectWithValue(e.message)
+        return rejectWithValue(true)
     }
 })
 
@@ -31,19 +31,24 @@ export const LoginSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers: (builder) => {
-        builder.addCase(loginAsync.pending, (state) => {
+        builder
+            .addCase(loginAsync.pending, (state) => {
             state.loading = true;
-            state.error = null;
-        }).addCase(loginAsync.fulfilled, (state, action) => {
-            if (action.payload) {
-            localStorage.setItem("token", action.payload);
-            }
+            state.error = false;
+        })
+            .addCase(loginAsync.fulfilled, (state, action) => {
+                console.log({state})
+                console.log({action})
+                if (action.payload) {
+                    localStorage.setItem("token", action.payload);
+                    state.token = localStorage.getItem("token")!;
+                    state.loading = false;
+                    state.error = false;
+                }
+        })
+            .addCase(loginAsync.rejected, (state, action) => {
             state.loading = false;
-            state.token = localStorage.getItem("token")!;
-            state.error = null;
-        }).addCase(loginAsync.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            state.error = action.payload;
         })
     }
 })

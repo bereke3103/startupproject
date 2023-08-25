@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import {Button, Checkbox, Form, Input, Layout, Space, Tooltip} from "antd";
-import {EyeInvisibleOutlined, EyeTwoTone} from "@ant-design/icons";
-import style from './Authorization.module.css'
+import React from 'react';
+import {Button, Form, Input} from "antd";
 import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
 import {ILogin, loginAsync} from "../../store/features/loginSlice";
 import {useNavigate} from "react-router";
+import {store} from "../../store/store";
+import style from './Authorization.module.css'
 
 
 
@@ -21,21 +21,23 @@ const Authorization = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
-    const onFinish = async (values: ILogin) => {
-        await dispatch(loginAsync(values));
+    const {error} = useAppSelector(state=> state.login)
+    const authHandler = async (values: ILogin) => {
+        await dispatch(loginAsync(values)).then(() => {
+            console.log(store.getState().login)
+        });
         navigate('/')
-        console.log(navigate)
     };
     return (
         <div className={style.block__authorizaton}>
+            <div className={style.title}>
+                <h1>Авторизация</h1>
+                {error && <h3 className={style.error}>Некорректный логин или пароль</h3>}
+            </div>
             <Form
                 name="basic"
-                // labelCol={{ span: 8 }}
-                // wrapperCol={{ span: 16 }}
-                // style={{ maxWidth: 600 }}
                 initialValues={{ remember: true }}
-                onFinish={onFinish}
-                // onFinishFailed={onFinishFailed}
+                onFinish={authHandler}
                 autoComplete="off"
             >
                 <Form.Item<FieldType>
