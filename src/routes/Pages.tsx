@@ -15,25 +15,42 @@ import React from "react";
 import PrivateRoute from "./PrivateRoute";
 import Authorization from "../modules/Authorization/Authorization";
 import Registration from "../modules/Registration/Registration";
+import {useAppSelector} from "../hooks/useTypedSelector";
+import {ListProfile} from "../modules/ListProfile";
 
 const Pages = () => {
+    const {success, token} = useAppSelector(state => state.login);
+    console.log(success)
+
     return (
-        <Routes>
-            <Route path={AUTH_PAGE} element={<Authorization/>}/>
-            <Route path={REGISTRATION_PAGE} element={<Registration/>}/>
-            <Route path={MAIN_PAGE} element={<PrivateRoute/>}>
-                {PrivateRoutes.map((r: IRoute) => (
+        <>
+            {success
+                ?
+                <Routes>
                     <>
-                        <Route path={r.path} element={<r.element/>}/>
-                        {/*<Route path="*" element={<Navigate to={`${AUTH_PAGE}`} replace/>}/>*/}
+                        {PrivateRoutes.map((route: IRoute) => {
+                            <>
+                                <Route path={route.path} element={<route.element/>}/>
+                                <Route path="*" element={<Authorization/>}/>
+                            </>
+                        })}
                     </>
-
-                ))}
-            </Route>
-        </Routes>
-
-
+                </Routes>
+                :
+                <Routes>
+                    <>
+                        {PublicRoutes.map((route: IRoute) => {
+                            <>
+                                <Route path={route.path} element={<route.element/>}/>
+                                <Route path="*" element={<ListProfile/>}/>
+                            </>
+                        })}
+                    </>
+                </Routes>
+            }
+        </>
     )
 }
-
 export default Pages;
+
+

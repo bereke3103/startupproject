@@ -12,7 +12,6 @@ export const AUTH_PAGE = '/auth';
 export const REGISTRATION_PAGE = '/registration';
 
 export interface IRoute {
-    index?: boolean,
     path?: string,
     element: () => JSX.Element
 }
@@ -20,7 +19,7 @@ export interface IRoute {
 export type RouteProps = IRoute[]
 
 export const PrivateRoutes: RouteProps = [
-    { index: true, element: ListProfile },
+    { path: MAIN_PAGE, element: ListProfile },
     { path: ADDING_NEW_PROFILE_PAGE, element: AddingNewProfile },
     { path: PERSONAL_PROFILE_PAGE, element: PersonalProfile }
 ]

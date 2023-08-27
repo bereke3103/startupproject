@@ -19,42 +19,45 @@ const initialState: ILogin = {
     success: false
 }
 export const loginAsync = createAsyncThunk
-("api/Login/login", async(login: ILogin, {rejectWithValue, fulfillWithValue})=> {
+("api/Login/login", async (login: ILogin, {rejectWithValue, fulfillWithValue}) => {
     try {
         const response = await axios.post("https://localhost:7141/api/Login/login", login);
-        return fulfillWithValue(response.data);
+        // console.log(response)
+        // localStorage.setItem("token", response.data)
+        return response.data;
     } catch (e: any) {
-        return rejectWithValue("Error")
+        return rejectWithValue(e)
     }
 })
 
 export const LoginSlice = createSlice({
     name: "login",
     initialState,
-    reducers:{
+    reducers: {
         removeToken(state) {
             localStorage.removeItem("token");
-            state.token="";
+            state.token = "";
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(loginAsync.pending, (state) => {
-            state.loading = true;
-            state.error = false;
-            state.success = false;
-        })
+                state.loading = true;
+                state.error = false;
+                state.success = false;
+            })
             .addCase(loginAsync.fulfilled, (state, action) => {
-            state.token = action.payload;
-            state.loading = false;
-            state.success = true;
-            state.error = false;
-        })
+                state.token = action.payload;
+                state.loading = false;
+                state.success = true;
+                state.error = false;
+            })
             .addCase(loginAsync.rejected, (state, action) => {
-            state.loading = false;
-            state.success = true;
-            state.error = action.payload;
-        })
+                state.token = null;
+                state.loading = false;
+                state.success = false;
+                state.error = action.payload;
+            })
     }
 })
 

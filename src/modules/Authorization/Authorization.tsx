@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, Input} from "antd";
 import {useAppSelector} from "../../hooks/useTypedSelector";
 import {ILogin} from "../../store/features/loginSlice";
@@ -9,6 +9,7 @@ import {AuthContext, useAuth} from "../../Context/AuthProvider";
 import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import Sidebar from "../../shared/Sidebar";
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
+import {ifError} from "assert";
 
 
 type FieldType = {
@@ -20,19 +21,29 @@ type FieldType = {
 
 const Authorization = () => {
 
-    const auth = useAuth();
-    const navigate = useNavigate()
+    const {tokenContext, loginHandle} = useAuth();
     const {error, loading} = useAppSelector(state => state.login)
+    const [tokenForLocal, setTokenForLocal] = useState<string | null>(null)
+
+    // console.log({tokenForLocal})
+    // useEffect(() => {
+    // }, [tokenContext]);
 
     const authHandler = (values: ILogin) => {
-        auth.loginHandle(values)
-        navigate(MAIN_PAGE)
-        console.log({auth})
+        loginHandle(values)
+        console.log({tokenContext})
+        if (tokenContext !== null && tokenContext !== undefined) {
+            localStorage.setItem("token", tokenContext)
+        }
     };
+
+    const logout = () => {
+       localStorage.removeItem("token")
+    }
+
     return (
-
-
-<>
+        <>
+            <button onClick={logout}>УДАЛТЬ</button>
             <PublicHeaderLink/>
             <div className={style.block__authorizaton}>
                 <div className={style.title}>
@@ -70,7 +81,7 @@ const Authorization = () => {
                     </Form.Item>
                 </Form>
             </div>
-</>
+        </>
 
     );
 };

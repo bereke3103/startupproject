@@ -1,59 +1,72 @@
-import {createContext, PropsWithChildren, useContext, useState} from "react";
-import {useAppDispatch} from "../hooks/useTypedSelector";
+import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector";
 import {ILogin, loginAsync} from "../store/features/loginSlice";
-import axios from "axios";
 
-interface AuthContextState {
-    userLog: string | null,
-    setUserLog: any,
-    tokenFromAuth: boolean | null,
-    setTokenFromAuth: any,
+interface IAuthContext {
+    loginContext: string | null,
+    setLoginContext: any,
+    successContext: boolean | null,
+    setSuccessContext: any,
     loginHandle: any,
-    logoutHandle: any
+    logoutHandle: any,
+    tokenContext: string | null,
+    setTokenContext: any
 }
 
-const AunthContextInititalState: AuthContextState = {
-    userLog: "",
-    setUserLog: () => { },
-    tokenFromAuth: false,
-    setTokenFromAuth: () => {},
-    loginHandle: () => {},
-    logoutHandle: () => {}
+const AunthContextState: IAuthContext = {
+    loginContext: "",
+    setLoginContext: () => {
+    },
+    successContext: false,
+    setSuccessContext: () => {
+    },
+    loginHandle: (userParams: any): any => {
+    },
+    logoutHandle: () => {
+    },
+    tokenContext: "",
+    setTokenContext: () => {
+    }
 }
-export const AuthContext = createContext<AuthContextState>(AunthContextInititalState);
+export const AuthContext = createContext<IAuthContext>(AunthContextState);
 export const AuthProvider: React.FC<PropsWithChildren> = ({children}) => {
-    const [tokenFromAuth, setTokenFromAuth] = useState<boolean | null>(null);
-    const [userLog, setUserLog] = useState<string | null>(null)
+    const {token, success, login} = useAppSelector(state => state.login);
+    const [tokenContext, setTokenContext] = useState<string | null>(null)
+    const [successContext, setSuccessContext] = useState<boolean | null>(null);
+    const [loginContext, setLoginContext] = useState<string | null>(null)
     const dispatch = useAppDispatch();
 
-    const loginHandle =  (userParams: ILogin) => {
-        try {
-            const response = axios.post("https://localhost:7141/api/Login/login", userParams);
-            response.then((res) =>{
-                console.log("keeeeeeeeeeek")
-                return res.data
-            })
-        }catch (e) {
-            console.log("keeeeeeeeeeek22222222")
-            console.log({e})
-        }
+    const loginHandle = (userParams: ILogin) => {
+        dispatch(loginAsync(userParams)).unwrap().then((res) => {
+            setTokenContext(res.data)
+            if (token !== null && token !== undefined) {
+                localStorage.setItem("token", token);
+            }
+            setSuccessContext(true)
+            setLoginContext(userParams.login);
 
-
+        }).catch((e) => {
+            setSuccessContext(false)
+            setTokenContext(null)
+            setLoginContext(null);
+        })
     }
 
     const logoutHandle = () => {
-       localStorage.removeItem("token");
-       setUserLog(null);
-       setTokenFromAuth(false);
+        localStorage.removeItem("token");
+        setLoginContext(null);
+        setSuccessContext(false);
     }
 
-    const values : AuthContextState = {
-        userLog,
-        setUserLog,
-        tokenFromAuth,
-        setTokenFromAuth,
+    const values: IAuthContext = {
+        loginContext,
+        setLoginContext,
+        successContext,
+        setSuccessContext,
         loginHandle,
         logoutHandle,
+        tokenContext,
+        setTokenContext,
     }
 
 

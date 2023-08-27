@@ -4,7 +4,7 @@ import axios from "axios";
 export interface IRegister {
     login: string,
     password: string,
-    success?: string,
+    success?: string | undefined,
     successBool?: boolean,
     loading: boolean,
     error?: boolean
@@ -20,13 +20,13 @@ const initialState: IRegister = {
 }
 export const registerAsync = createAsyncThunk(
     "/api/Register/register", async (login: IRegister, {rejectWithValue, fulfillWithValue}) => {
-        try {
-            const response = await axios.post("https://localhost:7141/api/Register/register", login);
-            console.log({response})
-            return fulfillWithValue(response.data);
-        } catch (e: any) {
-            return rejectWithValue(true)
-        }
+
+                axios.post("https://localhost:7141/api/Register/register", login).then((response) => {
+                return fulfillWithValue(response.data);
+            }).catch(e => {
+                console.log({e})
+                return rejectWithValue(true)
+            })
     }
 )
 
@@ -42,7 +42,7 @@ export const RegisterSlice = createSlice({
         }).addCase(registerAsync.fulfilled, (state, action) => {
             state.successBool = true;
             state.loading = false;
-            state.success = action.payload;
+            state.success = action.payload!;
         }).addCase(registerAsync.rejected, (state, action) => {
             state.successBool = false;
             state.loading = false;
