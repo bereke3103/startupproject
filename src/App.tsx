@@ -1,50 +1,30 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router";
-import Layout from "./components/Layout/Layout";
-import Header from "./components/Header/Header";
-import {AUTH_PAGE, IRoute, MAIN_PAGE, PrivateRoutes, PublicRoutes, REGISTRATION_PAGE} from "./routes/routes";
-import Authorization from "./modules/Authorization/Authorization";
+import {
+    ADDING_NEW_PROFILE_PAGE,
+    AUTH_PAGE,
+    IRoute,
+    MAIN_PAGE,
+    PrivateRoutes,
+    PublicRoutes,
+} from "./routes/routes";
 import {useAppSelector} from "./hooks/useTypedSelector";
-import {store} from "./store/store";
-
-
+import PublicHeaderLink from "./components/Header/components/PublicHeaderLink";
+import Sidebar from "./shared/Sidebar";
+import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import {AuthContext, AuthProvider, useAuth} from "./Context/AuthProvider";
+import Pages from "./routes/Pages";
+import {BrowserRouter} from "react-router-dom";
 
 function App() {
-    const {token} = store.getState().login
-
     return (
-    <div>
-        {localStorage.getItem('token') ?
-            <>
-                <Header/>
-                <div className="app container">
-                    <Layout>
-                        <Routes>
-                            {PrivateRoutes.map((r: IRoute) => (
-                                <>
-                                <Route path={r.path} element={<r.element/>}/>
-                                <Route path="*" element={< Navigate to={`${MAIN_PAGE}`} replace />}/>
-                                </>
-                            ))}
-                        </Routes>
-                    </Layout>
-                </div>
-            </> :
-            <>
-                <Routes>
-                    {PublicRoutes.map((r: IRoute) => (
-                        <>
-                            <Route path={r.path} element={<r.element/>}/>
-                            <Route path="*" element={<Navigate  to={`${REGISTRATION_PAGE}`} replace /> }/>
-                        </>
-                    ))}
-                </Routes>
-            </>
-        }
-    </div>
-
-  );
+        <AuthProvider>
+            <BrowserRouter>
+                <Pages/>
+            </BrowserRouter>
+        </AuthProvider>
+    )
 }
 
 export default App;

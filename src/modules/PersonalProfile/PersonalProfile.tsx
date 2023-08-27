@@ -1,8 +1,12 @@
 import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {getProfileById} from "../../store/features/profilesSlice";
 import {useParams} from "react-router";
 import style from './PersonalProfile.module.css'
+import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE} from "../../routes/routes";
+import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import Sidebar from "../../shared/Sidebar";
+
 const PersonalProfile = () => {
     const params = useParams()
     const userState = useAppSelector(state => state.user.profile)
@@ -10,12 +14,26 @@ const PersonalProfile = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(getProfileById(Number(params.id)))
-    },[])
+    }, [])
     return (
-        <div className={style.personal__block}>
+        <Sidebar items={[
+            {
+                key: MAIN_PAGE,
+                icon: <UserOutlined/>,
+                label: 'Список профилей',
+            },
+            {
+                key: ADDING_NEW_PROFILE_PAGE,
+                icon: <VideoCameraOutlined/>,
+                label: 'Добавление нового профиля',
+            }
+        ]}>
+            <div className={style.personal__block}>
 
                 <div className={style.img_person}>
-                    <img className={style.img} src="https://attractivecv.com/wp-content/uploads/2022/01/modele-de-cv-en-anglais-barcelone-bleu-207d-en.jpg" alt=""/>
+                    <img className={style.img}
+                         src="https://attractivecv.com/wp-content/uploads/2022/01/modele-de-cv-en-anglais-barcelone-bleu-207d-en.jpg"
+                         alt=""/>
                 </div>
 
                 <div className={style.person__info}>
@@ -34,9 +52,10 @@ const PersonalProfile = () => {
                     <div className={style.info__person}>
                         <span><b>Основные инструменты:</b></span> <p>{userState.stack}</p>
                     </div>
+                </div>
             </div>
-        </div>
+        </Sidebar>
     )
 }
 
-export default  PersonalProfile;
+export default PersonalProfile;

@@ -14,5 +14,18 @@ input {
 }
 
 /*временно header*/
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 
+.link {
+  color: black;
+  font-weight: 600;
+}
+
+.link:hover {
+  color: rgba(0, 0, 0, 0.42);
+}
 /*временно header*/

@@ -1,14 +1,12 @@
 .list__inputs {
-    margin-left: 450px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-top: 50px;
     align-items: center;
     gap: 50px;
 }
 
 .input__item {
+    align-items: center;
     display: flex;
     flex-direction: row;
     gap: 15px;
