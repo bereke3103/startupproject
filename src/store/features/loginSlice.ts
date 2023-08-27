@@ -7,7 +7,7 @@ export interface ILogin {
     token?: any,
     loading?: boolean,
     error?: any,
-    success?: boolean
+    success?: any
 }
 
 const initialState: ILogin = {
@@ -16,14 +16,14 @@ const initialState: ILogin = {
     token: "",
     loading: false,
     error: "",
-    success: false
+    success: null
 }
 export const loginAsync = createAsyncThunk
 ("api/Login/login", async (login: ILogin, {rejectWithValue, fulfillWithValue}) => {
     try {
         const response = await axios.post("https://localhost:7141/api/Login/login", login);
-        // console.log(response)
-        // localStorage.setItem("token", response.data)
+        localStorage.setItem("token", response.data)
+        localStorage.setItem("fullname", login.login)
         return response.data;
     } catch (e: any) {
         return rejectWithValue(e)

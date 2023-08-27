@@ -1,15 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Input} from "antd";
 import {useAppSelector} from "../../hooks/useTypedSelector";
 import {ILogin} from "../../store/features/loginSlice";
-import {useNavigate} from "react-router";
 import style from './Authorization.module.css'
-import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE} from "../../routes/routes";
-import {AuthContext, useAuth} from "../../Context/AuthProvider";
-import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
-import Sidebar from "../../shared/Sidebar";
+import {useAuth} from "../../Context/AuthProvider";
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
-import {ifError} from "assert";
 
 
 type FieldType = {
@@ -25,16 +20,8 @@ const Authorization = () => {
     const {error, loading} = useAppSelector(state => state.login)
     const [tokenForLocal, setTokenForLocal] = useState<string | null>(null)
 
-    // console.log({tokenForLocal})
-    // useEffect(() => {
-    // }, [tokenContext]);
-
     const authHandler = (values: ILogin) => {
         loginHandle(values)
-        console.log({tokenContext})
-        if (tokenContext !== null && tokenContext !== undefined) {
-            localStorage.setItem("token", tokenContext)
-        }
     };
 
     const logout = () => {

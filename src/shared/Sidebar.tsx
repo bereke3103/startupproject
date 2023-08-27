@@ -10,6 +10,7 @@ import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
 import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector";
 import {store} from "../store/store";
 import {removeToken} from "../store/features/loginSlice";
+import {useAuth} from "../Context/AuthProvider";
 // import {useAuth} from "../Context/AuthProvider";
 // import {useAuth} from "../Context/AuthProvider";
 
@@ -26,7 +27,7 @@ interface  SidebarProps {
 
 const {Header, Sider, Content} = Layout;
 const Sidebar = ({children, items} : SidebarProps) => {
-    // const auth: any = useAuth();
+    const {logoutHandle} = useAuth();
     const dispatch = useAppDispatch();
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate()
@@ -43,7 +44,7 @@ const Sidebar = ({children, items} : SidebarProps) => {
     }
 
     const logout = () => {
-        // auth.logoutHandle();
+        logoutHandle();
     }
 
     return (

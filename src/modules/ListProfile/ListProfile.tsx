@@ -29,7 +29,7 @@ export const ListProfile = () => {
 
     const toPersonalProfile = (id: number) => {
         if (id) {
-            navigate(`${PERSONAL_PROFILE_PAGE}/${id}`)
+            navigate(`/personalprofile/${id}`)
         }
     }
 

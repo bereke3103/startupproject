@@ -1,6 +1,8 @@
 import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector";
 import {ILogin, loginAsync} from "../store/features/loginSlice";
+import {useNavigate} from "react-router";
+import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
 
 interface IAuthContext {
     loginContext: string | null,
@@ -35,13 +37,12 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({children}) => {
     const [successContext, setSuccessContext] = useState<boolean | null>(null);
     const [loginContext, setLoginContext] = useState<string | null>(null)
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const loginHandle = (userParams: ILogin) => {
         dispatch(loginAsync(userParams)).unwrap().then((res) => {
-            setTokenContext(res.data)
-            if (token !== null && token !== undefined) {
-                localStorage.setItem("token", token);
-            }
+            navigate(MAIN_PAGE)
+            setTokenContext(res)
             setSuccessContext(true)
             setLoginContext(userParams.login);
 
@@ -54,8 +55,10 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({children}) => {
 
     const logoutHandle = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("fullname");
         setLoginContext(null);
         setSuccessContext(false);
+        navigate(AUTH_PAGE)
     }
 
     const values: IAuthContext = {
