@@ -1,23 +1,18 @@
-import Sidebar from "../shared/Sidebar";
 import {
     ADDING_NEW_PROFILE_PAGE,
     AUTH_PAGE,
-    IRoute,
-    MAIN_PAGE,
+    IRoute, MAIN_PAGE, MY_LIST_RESUMES,
     PrivateRoutes,
-    PublicRoutes,
     REGISTRATION_PAGE
 } from "./routes";
-import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
-import {Navigate, Route, Routes} from "react-router";
-import PublicHeaderLink from "../components/Header/components/PublicHeaderLink";
+import {Route, Routes} from "react-router";
 import React, {useEffect, useState} from "react";
-import PrivateRoute from "./PrivateRoute";
 import Authorization from "../modules/Authorization/Authorization";
 import Registration from "../modules/Registration/Registration";
-import {useAppSelector} from "../hooks/useTypedSelector";
-import {ListProfile} from "../modules/ListProfile";
+import {AllListResumes} from "../modules/AllListResumes";
 import {useAuth} from "../Context/AuthProvider";
+import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import Sidebar from "../shared/Sidebar";
 
 const Pages = () => {
     const context = useAuth()
@@ -28,7 +23,7 @@ const Pages = () => {
         onLoadContext()
     }, [context.tokenContext, context.successContext, successPg])
 
-    function onLoadContext  ()  {
+    function onLoadContext() {
         if (context.successContext === true) {
             setSuccessPg(true)
         }
@@ -50,14 +45,33 @@ const Pages = () => {
                     <Route path="*" element={<Authorization/>}/>
                 </Routes>
                 :
-                <Routes>
-                    {PrivateRoutes.map((route: IRoute) => (
-                        <>
-                            <Route path={route.path} element={<route.element/>}/>
-                            <Route path="*" element={<ListProfile/>}/>
-                        </>
-                    ))}
-                </Routes>
+                <Sidebar items={[
+                    {
+                        key: MAIN_PAGE,
+                        icon: <UserOutlined/>,
+                        label: 'Все резюме',
+                    },
+                    {
+                        key: ADDING_NEW_PROFILE_PAGE,
+                        icon: <VideoCameraOutlined/>,
+                        label: 'Добавить резюме',
+                    },
+                    {
+                        key: MY_LIST_RESUMES,
+                        icon: <VideoCameraOutlined/>,
+                        label: 'Мои резюме',
+                    }
+                ]}>
+                    <Routes>
+                        {PrivateRoutes.map((route: IRoute) => (
+                            <>
+                                <Route path={route.path} element={<route.element/>}/>
+                                <Route path="*" element={<AllListResumes/>}/>
+                            </>
+
+                        ))}
+                    </Routes>
+                </Sidebar>
             }
         </>
     )

@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import {getProfileById} from "../../store/features/profilesSlice";
 import {useParams} from "react-router";
 import style from './PersonalProfile.module.css'
-import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE} from "../../routes/routes";
+import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE, MY_LIST_RESUMES} from "../../routes/routes";
 import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import Sidebar from "../../shared/Sidebar";
 
@@ -16,18 +16,6 @@ const PersonalProfile = () => {
         dispatch(getProfileById(Number(params.id)))
     }, [])
     return (
-        <Sidebar items={[
-            {
-                key: MAIN_PAGE,
-                icon: <UserOutlined/>,
-                label: 'Список профилей',
-            },
-            {
-                key: ADDING_NEW_PROFILE_PAGE,
-                icon: <VideoCameraOutlined/>,
-                label: 'Добавление нового профиля',
-            }
-        ]}>
             <div className={style.personal__block}>
 
                 <div className={style.img_person}>
@@ -54,7 +42,6 @@ const PersonalProfile = () => {
                     </div>
                 </div>
             </div>
-        </Sidebar>
     )
 }
 

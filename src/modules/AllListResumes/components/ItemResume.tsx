@@ -10,8 +10,8 @@ type ProfileProps = {
     toPersonalProfile: any
 }
 
-const ItemProfile = ({lastname, nickname, workplace, stack, id, toPersonalProfile, firstname} : ProfileProps) => {
-
+const ItemResume = ({lastname, nickname, workplace, stack, id, toPersonalProfile, firstname} : ProfileProps) => {
+    console.log({id})
     return (
        <div onClick={() => toPersonalProfile(id)} className={style.profile}>
            <h1 className="nickname"> <span>Ник:</span> {nickname}</h1>
@@ -23,4 +23,4 @@ const ItemProfile = ({lastname, nickname, workplace, stack, id, toPersonalProfil
     )
 }
 
-export default ItemProfile;
+export default ItemResume;

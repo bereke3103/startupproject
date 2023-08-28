@@ -5,7 +5,7 @@ import ButtonComp from "../../../components/Button/ButtonComp";
 import {createProfileThunk, IProfileCreate} from "../../../store/features/profilesSlice";
 import {useAppDispatch} from "../../../hooks/useTypedSelector";
 import {useNavigate} from "react-router";
-import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE} from "../../../routes/routes";
+import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE, MY_LIST_RESUMES} from "../../../routes/routes";
 import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import Sidebar from "../../../shared/Sidebar";
 
@@ -23,7 +23,9 @@ export const AddingNewProfile = () => {
 
     const toAddNewProfile = (e: any) => {
         e.preventDefault();
+        const userId = localStorage.getItem("id")
         const newUser: IProfileCreate = {
+            userId: Number(userId),
             nickname,
             firstname,
             lastname,
@@ -40,18 +42,6 @@ export const AddingNewProfile = () => {
     }
 
     return (
-        <Sidebar items={[
-            {
-                key: MAIN_PAGE,
-                icon: <UserOutlined/>,
-                label: 'Список профилей',
-            },
-            {
-                key: ADDING_NEW_PROFILE_PAGE,
-                icon: <VideoCameraOutlined/>,
-                label: 'Добавление нового профиля',
-            }
-        ]}>
             <div className={style.list__inputs}>
                 <InputComp label={"Ник"} onChange={e => setNick(e.target.value)}/>
                 <InputComp label={"Имя"} onChange={e => setFirstName(e.target.value)}/>
@@ -60,6 +50,5 @@ export const AddingNewProfile = () => {
                 <InputComp label={"Основной инструмент"} onChange={e => setStack(e.target.value)}/>
                 <ButtonComp label={"Добавить"} onClick={toAddNewProfile}/>
             </div>
-        </Sidebar>
     )
 }

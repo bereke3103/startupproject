@@ -8,12 +8,17 @@ const PrivateHeaderLink = () => {
             {
                 className: "link",
                 to: ADDING_NEW_PROFILE_PAGE,
-                linkName: "Добавление нового профиля"
+                linkName: "Добавить резюме"
             },
             {
                 className: "link",
                 to: MAIN_PAGE,
-                linkName: "Список профилей"
+                linkName: "Все резюме"
+            },
+            {
+                className: "link",
+                to: MAIN_PAGE,
+                linkName: "Список всех резюме"
             }
         ]}/>
     )

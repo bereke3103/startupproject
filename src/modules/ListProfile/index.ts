@@ -1,1 +1,0 @@
-export { ListProfile } from './ListProfile'

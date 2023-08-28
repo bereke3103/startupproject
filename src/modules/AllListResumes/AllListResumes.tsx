@@ -1,23 +1,26 @@
 import React, {useEffect, useState} from "react";
-import ItemProfile from "./components/ItemProfile";
+import ItemResume from "./components/ItemResume";
 import style from './components/profileStyle.module.css'
 import ButtonComp from "../../components/Button/ButtonComp";
 import {useNavigate} from "react-router";
-import {getProfilesAsync} from "../../store/features/profilesSlice";
+import {getProfilesAsync, Resume} from "../../store/features/profilesSlice";
 import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
-import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE, PERSONAL_PROFILE_PAGE} from "../../routes/routes";
-import {Alert, Space, Spin} from "antd";
+import {ADDING_NEW_PROFILE_PAGE, MAIN_PAGE, MY_LIST_RESUMES} from "../../routes/routes";
+import {Space, Spin} from "antd";
 import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import Sidebar from "../../shared/Sidebar";
 
-export const ListProfile = () => {
+export const AllListResumes = () => {
 
     const dispatch = useAppDispatch()
 
-    const {profiles, loading, error} = useAppSelector(state => state.user);
+    const {allListResumes, loading, error} = useAppSelector(state => state.user);
+    const [allResumesData, setAllResumesData] = useState<Resume[]>(allListResumes)
 
     useEffect(() => {
-        dispatch(getProfilesAsync())
+        dispatch(getProfilesAsync()).then((res) => {
+            setAllResumesData(res.payload)
+        })
     }, []);
 
     const navigate = useNavigate();
@@ -35,19 +38,6 @@ export const ListProfile = () => {
 
     return (
         <>
-            <Sidebar items={[
-                {
-                    key: MAIN_PAGE,
-                    icon: <UserOutlined/>,
-                    label: 'Список профилей',
-                },
-                {
-                    key: ADDING_NEW_PROFILE_PAGE,
-                    icon: <VideoCameraOutlined/>,
-                    label: 'Добавление нового профиля',
-                }
-            ]}>
-                {/*<PrivateHeaderLink/>*/}
                 <div className="app container">
                     <div className={style.block_profiles}>
                         <div className="title__block_profiles">
@@ -62,16 +52,16 @@ export const ListProfile = () => {
                             </Space>
                             :
                             <div className={style.allProfile}>
-                                {profiles.map(profile => (
-                                    <ItemProfile
+                                {allResumesData.map(resume => (
+                                    <ItemResume
                                         toPersonalProfile={toPersonalProfile}
-                                        key={profile.id}
-                                        lastname={profile.lastname}
-                                        firstname={profile.firstname}
-                                        nickname={profile.nickname}
-                                        stack={profile.stack}
-                                        workplace={profile.workplace}
-                                        id={profile.id}/>
+                                        key={resume.id}
+                                        lastname={resume.lastname}
+                                        firstname={resume.firstname}
+                                        nickname={resume.nickname}
+                                        stack={resume.stack}
+                                        workplace={resume.workplace}
+                                        id={resume.id}/>
                                 ))}
                             </div>
                         }
@@ -80,7 +70,6 @@ export const ListProfile = () => {
                         </div>
                     </div>
                 </div>
-            </Sidebar>
         </>
     )
 }

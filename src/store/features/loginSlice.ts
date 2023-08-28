@@ -22,7 +22,8 @@ export const loginAsync = createAsyncThunk
 ("api/Login/login", async (login: ILogin, {rejectWithValue, fulfillWithValue}) => {
     try {
         const response = await axios.post("https://localhost:7141/api/Login/login", login);
-        localStorage.setItem("token", response.data)
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("id", response.data.id)
         localStorage.setItem("fullname", login.login)
         return response.data;
     } catch (e: any) {

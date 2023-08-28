@@ -55,7 +55,7 @@ const Sidebar = ({children, items} : SidebarProps) => {
                     theme="dark"
                     mode="inline"
                     onClick={toNavigatePage}
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[MAIN_PAGE]}
                     items={items}
                 />
             </Sider>
