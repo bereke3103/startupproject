@@ -63,9 +63,9 @@ const Pages = () => {
                     }
                 ]}>
                     <Routes>
-                        {PrivateRoutes.map((route: IRoute) => (
+                        {PrivateRoutes.map((route: IRoute, index) => (
                             <>
-                                <Route path={route.path} element={<route.element/>}/>
+                                <Route key={index} path={route.path} element={<route.element/>}/>
                                 <Route path="*" element={<AllListResumes/>}/>
                             </>
 

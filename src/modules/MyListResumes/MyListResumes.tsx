@@ -68,9 +68,9 @@ const MyListResumes = () => {
                                 ))}
                             </div>
                         }
-                        <div className={"toAddProfile"}>
-                            <ButtonComp onClick={toAddNewProfile} label={"Добавить свой профиль"}/>
-                        </div>
+                        {/*<div className={"toAddProfile"}>*/}
+                        {/*    <ButtonComp onClick={toAddNewProfile} label={"Добавить свой профиль"}/>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
         </>

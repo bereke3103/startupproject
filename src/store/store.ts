@@ -4,12 +4,14 @@ import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
 import {loginReducer} from "./features/loginSlice";
 import {registerReducer} from "./features/registerSlice";
+import {commentReducer} from "./features/commetSlice";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         login: loginReducer,
-        register: registerReducer
+        register: registerReducer,
+        comment: commentReducer
     }
 })
 

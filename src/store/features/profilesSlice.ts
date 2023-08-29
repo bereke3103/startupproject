@@ -13,6 +13,7 @@ export interface IProfileCreate {
 
 export interface Resume {
     id?: number,
+    userId: number | undefined | null,
     nickname: string,
     firstname: string,
     lastname: string,
@@ -34,6 +35,7 @@ const initialState: UserState = {
     allListResumes: [],
     myListResumes: [],
     profile: {
+        userId: 0,
         nickname: "",
         firstname: "",
         lastname: "",

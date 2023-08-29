@@ -16,19 +16,10 @@ export const AllListResumes = () => {
 
     const {allListResumes, loading, error} = useAppSelector(state => state.user);
     const [allResumesData, setAllResumesData] = useState<Resume[]>(allListResumes)
+    const [findResume, setFindResume] = useState<string>("")
 
-    useEffect(() => {
-        dispatch(getProfilesAsync()).then((res) => {
-            setAllResumesData(res.payload)
-        })
-    }, []);
 
     const navigate = useNavigate();
-
-    function toAddNewProfile(e: any) {
-        e.preventDefault();
-        navigate(`${ADDING_NEW_PROFILE_PAGE}`)
-    }
 
     const toPersonalProfile = (id: number) => {
         if (id) {
@@ -36,12 +27,28 @@ export const AllListResumes = () => {
         }
     }
 
+    useEffect(() => {
+        dispatch(getProfilesAsync()).then((res) => {
+            setAllResumesData(res.payload)
+        })
+    }, [dispatch]);
+    const findResumeFn = (e:any) => {
+        const valueInpue = e.target.value;
+        setFindResume(valueInpue);
+        const newValues = allListResumes.filter(item => item.nickname.includes(findResume));
+        setAllResumesData(newValues)
+
+        return newValues;
+    }
+
+
     return (
         <>
                 <div className="app container">
                     <div className={style.block_profiles}>
                         <div className="title__block_profiles">
                             <h1>Список резюме</h1>
+                            <input type="text" value={findResume} onChange={(e) => findResumeFn(e)} />
                         </div>
                         {loading
                             ?
@@ -65,9 +72,6 @@ export const AllListResumes = () => {
                                 ))}
                             </div>
                         }
-                        <div className={"toAddProfile"}>
-                            <ButtonComp onClick={toAddNewProfile} label={"Добавить свой профиль"}/>
-                        </div>
                     </div>
                 </div>
         </>
