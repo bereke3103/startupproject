@@ -18,15 +18,15 @@ const initialState: IRegister = {
     error: false,
     successBool: false,
 }
-export const registerAsync = createAsyncThunk(
+export const registerThunk = createAsyncThunk(
     "/api/Register/register", async (login: IRegister, {rejectWithValue, fulfillWithValue}) => {
 
-                axios.post("https://localhost:7141/api/Register/register", login).then((response) => {
-                return fulfillWithValue(response.data);
-            }).catch(e => {
-                console.log({e})
-                return rejectWithValue(true)
-            })
+        axios.post("https://localhost:7141/api/Register/register", login).then((response) => {
+            return fulfillWithValue(response.data);
+        }).catch(e => {
+            console.log({e})
+            return rejectWithValue(true)
+        })
     }
 )
 
@@ -35,15 +35,15 @@ export const RegisterSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers:(builder) => {
-        builder.addCase(registerAsync.pending, (state) => {
+        builder.addCase(registerThunk.pending, (state) => {
             state.successBool = false;
             state.loading = true;
             state.error = false;
-        }).addCase(registerAsync.fulfilled, (state, action) => {
+        }).addCase(registerThunk.fulfilled, (state, action) => {
             state.successBool = true;
             state.loading = false;
             state.success = action.payload!;
-        }).addCase(registerAsync.rejected, (state, action) => {
+        }).addCase(registerThunk.rejected, (state, action) => {
             state.successBool = false;
             state.loading = false;
             state.error = action.meta.rejectedWithValue;

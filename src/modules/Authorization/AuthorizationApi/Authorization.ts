@@ -18,7 +18,7 @@ const initialState: ILogin = {
     error: "",
     success: null
 }
-export const loginAsync = createAsyncThunk
+export const authorizationThunk = createAsyncThunk
 ("api/Login/login", async (login: ILogin, {rejectWithValue, fulfillWithValue}) => {
     try {
         const response = await axios.post("https://localhost:7141/api/Login/login", login);
@@ -31,7 +31,7 @@ export const loginAsync = createAsyncThunk
     }
 })
 
-export const LoginSlice = createSlice({
+export const AuthorizationSlice = createSlice({
     name: "login",
     initialState,
     reducers: {
@@ -42,18 +42,18 @@ export const LoginSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loginAsync.pending, (state) => {
+            .addCase(authorizationThunk.pending, (state) => {
                 state.loading = true;
                 state.error = false;
                 state.success = false;
             })
-            .addCase(loginAsync.fulfilled, (state, action) => {
+            .addCase(authorizationThunk.fulfilled, (state, action) => {
                 state.token = action.payload;
                 state.loading = false;
                 state.success = true;
                 state.error = false;
             })
-            .addCase(loginAsync.rejected, (state, action) => {
+            .addCase(authorizationThunk.rejected, (state, action) => {
                 state.token = null;
                 state.loading = false;
                 state.success = false;
@@ -62,5 +62,5 @@ export const LoginSlice = createSlice({
     }
 })
 
-export const {removeToken} = LoginSlice.actions;
-export const loginReducer = LoginSlice.reducer;
+export const {removeToken} = AuthorizationSlice.actions;
+export const authorizationReducer = AuthorizationSlice.reducer;

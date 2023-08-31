@@ -1,7 +1,7 @@
 import React from "react";
 import {Input, Button} from "antd";
 
-interface AddingCommentToResumeProps {
+interface AddingToCommentProps {
     userId: number | null | undefined,
     authorResumeId: number | null,
     comment: string,
@@ -9,7 +9,7 @@ interface AddingCommentToResumeProps {
     toAddComment: any,
 }
 
-const AddingCommentToResume: React.FC<AddingCommentToResumeProps> = ({
+const AddingToComment: React.FC<AddingToCommentProps> = ({
                                                                          userId,
                                                                          authorResumeId,
                                                                          comment,
@@ -34,4 +34,4 @@ const AddingCommentToResume: React.FC<AddingCommentToResumeProps> = ({
         </>
     )
 }
-export default AddingCommentToResume
+export default AddingToComment

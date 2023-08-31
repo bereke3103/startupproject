@@ -1,20 +1,13 @@
-import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
-import React, {useEffect, useState} from "react";
-import {getProfileById} from "../../store/features/profilesSlice";
 import {useParams} from "react-router";
-import style from './PersonalProfile.module.css'
-import {
-    creatingCommentById,
-    getCommentByUserIdByResumeId,
-    ICommentRequest,
-    ICreatingComment
-} from "../../store/features/commetSlice";
-import CommentItem from "../Comment/components/CommentItem";
-import Comment from "../Comment/Comment";
-import AddingCommentToResume from "../AddingCommentToResume/AddingCommentToResume";
+import React, {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
+import {getProfileById} from "../../../store/features/profilesSlice";
+import {creatingCommentById, ICreatingComment} from "../../../store/features/commetSlice";
+import style from "../../../../modules/PersonalProfile/PersonalProfile.module.css";
+import Comment from "../../../../modules/Comment/Comment";
+import AddingCommentToResume from "../../../../modules/AddingCommentToResume/AddingCommentToResume";
 
-
-const PersonalProfile = () => {
+const PersonCard = () => {
     const params = useParams();
     const [authorResumeId, setAuthorResumeId] = useState<number | null>(null)
     const [comment, setComment] = useState<string>('');
@@ -44,7 +37,6 @@ const PersonalProfile = () => {
             setComment("");
         })
     }
-
     return (
         <>
             <div className={style.personal__block}>
@@ -84,5 +76,3 @@ const PersonalProfile = () => {
         </>
     )
 }
-
-export default PersonalProfile;

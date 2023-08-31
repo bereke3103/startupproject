@@ -1,13 +1,11 @@
 import {Button, Form, Input} from "antd";
 import React from "react";
 import style from './Registration.module.css'
-import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
-import {IRegister, registerAsync} from "../../store/features/registerSlice";
 import {useNavigate} from "react-router";
-import {ADDING_NEW_PROFILE_PAGE, AUTH_PAGE, MAIN_PAGE} from "../../routes/routes";
-import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
-import Sidebar from "../../shared/Sidebar";
+import { AUTH_PAGE} from "../../routes/routes";
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
+import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
+import {IRegister, registerThunk} from "./RegistrationApi/RegistrationApi";
 
 type FieldType = {
     login?: string;
@@ -20,7 +18,7 @@ const Registration = () => {
     const navigate = useNavigate();
 
     const registerHandler = (newUser: IRegister) => {
-        dispath(registerAsync(newUser)).then((res) => {
+        dispath(registerThunk(newUser)).then((res) => {
             navigate(`${AUTH_PAGE}`)
         })
     }

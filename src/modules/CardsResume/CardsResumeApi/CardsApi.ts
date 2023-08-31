@@ -49,13 +49,13 @@ const initialState: UserState = {
 
 }
 
-export const getProfilesAsync = createAsyncThunk("api/Resume/getusers", async(thunkAPI) => {
+export const getResumeThunk = createAsyncThunk("api/Resume/getusers", async(thunkAPI) => {
     const response = await axios.get("https://localhost:7141/api/Resume/getusers");
     const data = response.data;
     return data;
 })
 
-export const createProfileThunk = createAsyncThunk("api/Resume/createuser", async(user: IProfileCreate, {rejectWithValue,dispatch}) => {
+export const createResumeThunk = createAsyncThunk("api/Resume/createuser", async(user: IProfileCreate, {rejectWithValue,dispatch}) => {
     try{
         console.log({user})
         const response = await axios.post("https://localhost:7141/api/Resume/createresumebyid", user)
@@ -65,7 +65,7 @@ export const createProfileThunk = createAsyncThunk("api/Resume/createuser", asyn
     }
 })
 
-export const getProfileById = createAsyncThunk("", async(id: number, {rejectWithValue}) => {
+export const getResumeByIdThunk = createAsyncThunk("", async(id: number, {rejectWithValue}) => {
     try {
         const response = await axios.get(`https://localhost:7141/api/Resume/getuserbyid?id=${id}`)
         return response.data;
@@ -74,7 +74,7 @@ export const getProfileById = createAsyncThunk("", async(id: number, {rejectWith
     }
 })
 
-export const getResumesListById = createAsyncThunk("api/Resume/getlistofwwnresumes", async(id: number, {rejectWithValue}) => {
+export const getResumesListByIdThunk = createAsyncThunk("api/Resume/getlistofwwnresumes", async(id: number, {rejectWithValue}) => {
     try {
         const response = await axios.get("https://localhost:7141/api/Resume/getlistofwwnresumes", {
             params: {id}
@@ -85,42 +85,42 @@ export const getResumesListById = createAsyncThunk("api/Resume/getlistofwwnresum
     }
 })
 
-export const PersonSlice = createSlice({
+export const CardsResumeSlice = createSlice({
     name: "user",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
 
 
-        builder.addCase(getProfilesAsync.pending, state => {
+        builder.addCase(getResumeThunk.pending, state => {
             state.loading = true;
             state.error = null;
-        }).addCase(getProfilesAsync.fulfilled, (state, action) => {
+        }).addCase(getResumeThunk.fulfilled, (state, action) => {
             state.loading = false;
             state.allListResumes = action.payload;
             state.error = null;
-        }).addCase(getProfilesAsync.rejected, (state, action) => {
+        }).addCase(getResumeThunk.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
         })
 
 
-        builder.addCase(getProfileById.fulfilled, (state, action) => {
+        builder.addCase(getResumeByIdThunk.fulfilled, (state, action) => {
             state.profile = action.payload;
-        }).addCase(getProfileById.pending, (state) => {
+        }).addCase(getResumeByIdThunk.pending, (state) => {
             state.profile.loading = true;
             state.profile.error = null;
-        }).addCase(getProfileById.rejected, (state, action) => {
+        }).addCase(getResumeByIdThunk.rejected, (state, action) => {
             state.profile.loading = false;
             state.profile.error = action.error.message;
         })
 
 
-        builder.addCase(getResumesListById.fulfilled, (state, action) => {
+        builder.addCase(getResumesListByIdThunk.fulfilled, (state, action) => {
             state.myListResumes = action.payload;
         })
 
 
     }
 })
-export const userReducer = PersonSlice.reducer;
+export const cardsResumeReducer = CardsResumeSlice.reducer;

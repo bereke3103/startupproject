@@ -1,15 +1,13 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import {userReducer} from "./features/profilesSlice";
-import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
-import {loginReducer} from "./features/loginSlice";
-import {registerReducer} from "./features/registerSlice";
-import {commentReducer} from "./features/commetSlice";
+import {authorizationReducer} from "../modules/Authorization/AuthorizationApi/Authorization";
+import {cardsResumeReducer} from "../modules/CardsResume/CardsResumeApi/CardsApi";
+import {registerReducer} from "../modules/Registration/RegistrationApi/RegistrationApi";
+import {commentReducer} from "../modules/Comment/CommentApi/CommentApi";
 
 export const store = configureStore({
     reducer: {
-        user: userReducer,
-        login: loginReducer,
+        cardResume: cardsResumeReducer,
+        login: authorizationReducer,
         register: registerReducer,
         comment: commentReducer
     }

@@ -25,7 +25,7 @@ const initialState:CommentsState = {
     commentsByUserId: []
 }
 
-export const getCommentByUserIdByResumeId = createAsyncThunk("/api/Comment/getcommentsbyuserifromresume", async (getCommentsByResumeId:CommentRequestType, {rejectWithValue}) => {
+export const getCommentByUserIdByResumeIdThunk = createAsyncThunk("/api/Comment/getcommentsbyuserifromresume", async (getCommentsByResumeId:CommentRequestType, {rejectWithValue}) => {
     try {
         const response = await axios.get("https://localhost:7141/api/Comment/getcommentsbyuserifromresume", {
             params: {
@@ -40,7 +40,7 @@ export const getCommentByUserIdByResumeId = createAsyncThunk("/api/Comment/getco
     }
 })
 
-export const creatingCommentById = createAsyncThunk("/api/Comment/creatingcomment", async (requestForCreatingComment:ICreatingComment, {rejectWithValue}) => {
+export const creatingCommentByIdThunk = createAsyncThunk("/api/Comment/creatingcomment", async (requestForCreatingComment:ICreatingComment, {rejectWithValue}) => {
     try {
         const response = await axios.post("https://localhost:7141/api/Comment/creatingcomment", requestForCreatingComment);
         return response.data;
@@ -54,12 +54,12 @@ export const CommentSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers:(builder) => {
-        builder.addCase(getCommentByUserIdByResumeId.fulfilled, (state, action) => {
+        builder.addCase(getCommentByUserIdByResumeIdThunk.fulfilled, (state, action) => {
             state.commentsByUserId = action.payload;
         })
 
 
-        builder.addCase(creatingCommentById.fulfilled, (state, action) => {
+        builder.addCase(getCommentByUserIdByResumeIdThunk.fulfilled, (state, action) => {
             const newComment = {
                 comment: action.payload.comment,
                 createdComment: action.payload.createdComment,
