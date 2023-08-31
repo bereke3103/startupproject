@@ -1,9 +1,10 @@
-import {AllListResumes} from "../modules/AllListResumes";
-import {AddingNewProfile} from "../modules/AddingNewProfile";
-import PersonalProfile from "../modules/PersonalProfile/PersonalProfile";
-import Authorization from "../modules/Authorization/Authorization";
+
 import Registration from "../modules/Registration/Registration";
-import MyListResumes from "../modules/MyListResumes/MyListResumes";
+import OtherCardsResumeList from "../modules/CardsResume/OtherCardsResumeList/OtherCardsResumeList";
+import MyCardsResumeList from "../modules/CardsResume/MyCardsResumeList/MyCardsResumeList";
+import CreatingResume from "../modules/CreatingResume/CreatingResume";
+import PersonCard from "../modules/CardsResume/PersonCard/PersonCard";
+import Authorization from "../modules/Authorization/Authorization";
 
 
 export const MAIN_PAGE = '/';
@@ -21,10 +22,10 @@ export interface IRoute {
 export type RouteProps = IRoute[]
 
 export const PrivateRoutes: RouteProps = [
-    { path: MAIN_PAGE, element: AllListResumes },
-    { path: MY_LIST_RESUMES, element: MyListResumes },
-    { path: ADDING_NEW_PROFILE_PAGE, element: AddingNewProfile },
-    { path: PERSONAL_PROFILE_PAGE, element: PersonalProfile }
+    { path: MAIN_PAGE, element: OtherCardsResumeList },
+    { path: MY_LIST_RESUMES, element: MyCardsResumeList },
+    { path: ADDING_NEW_PROFILE_PAGE, element: CreatingResume },
+    { path: PERSONAL_PROFILE_PAGE, element: PersonCard }
 ]
 
 export const PublicRoutes: RouteProps = [

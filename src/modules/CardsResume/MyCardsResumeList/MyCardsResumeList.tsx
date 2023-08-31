@@ -1,23 +1,23 @@
 import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
 import React, {useEffect, useState} from "react";
-import {getResumesListById, Resume} from "../../../store/features/profilesSlice";
 import {useNavigate} from "react-router";
 import {ADDING_NEW_PROFILE_PAGE} from "../../../routes/routes";
-import style from "../../../../modules/AllListResumes/components/profileStyle.module.css";
+import style from "../components/CardResumeItem/cardResumeItem.module.css";
 import {Space, Spin} from "antd";
-import ItemResume from "../../../../modules/AllListResumes/components/ItemResume";
+import {getResumesListByIdThunk, Resume} from "../CardsResumeApi/CardsApi";
+import CardsResumeItem from "../components/CardResumeItem/CardsResumeItem";
 
-const MyCardsResumeList = () => {\
+const MyCardsResumeList = () => {
 
     const dispatch = useAppDispatch()
 
-    const {myListResumes, loading, error} = useAppSelector(state => state.user);
+    const {myListResumes, loading, error} = useAppSelector(state => state.cardResume);
     const [myResumesData, setMyResumesData] = useState<Resume[]>(myListResumes)
 
 
     useEffect(() => {
         const id = localStorage.getItem("id");
-        dispatch(getResumesListById(Number(id))).then((res) => {
+        dispatch(getResumesListByIdThunk(Number(id))).then((res) => {
             setMyResumesData(res.payload)
         })
     }, []);
@@ -54,7 +54,7 @@ const MyCardsResumeList = () => {\
                         <div className={style.allProfile}>
                             {myResumesData.map(resume => (
 
-                                <ItemResume
+                                <CardsResumeItem
                                     toPersonalProfile={toPersonalProfile}
                                     key={resume.id}
                                     lastname={resume.lastname}
@@ -66,9 +66,6 @@ const MyCardsResumeList = () => {\
                             ))}
                         </div>
                     }
-                    {/*<div className={"toAddProfile"}>*/}
-                    {/*    <ButtonComp onClick={toAddNewProfile} label={"Добавить свой профиль"}/>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         </>

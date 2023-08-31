@@ -1,4 +1,4 @@
-import style from "../../../../../modules/AllListResumes/components/profileStyle.module.css";
+import style from "./cardResumeItem.module.css";
 
 
 

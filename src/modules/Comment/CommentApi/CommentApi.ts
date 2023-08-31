@@ -59,7 +59,7 @@ export const CommentSlice = createSlice({
         })
 
 
-        builder.addCase(getCommentByUserIdByResumeIdThunk.fulfilled, (state, action) => {
+        builder.addCase(creatingCommentByIdThunk.fulfilled, (state, action) => {
             const newComment = {
                 comment: action.payload.comment,
                 createdComment: action.payload.createdComment,

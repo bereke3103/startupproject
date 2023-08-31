@@ -9,10 +9,10 @@ import {Route, Routes} from "react-router";
 import React, {useEffect, useState} from "react";
 import Authorization from "../modules/Authorization/Authorization";
 import Registration from "../modules/Registration/Registration";
-import {AllListResumes} from "../modules/AllListResumes";
 import {useAuth} from "../Context/AuthProvider";
 import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import Sidebar from "../shared/Sidebar";
+import OtherCardsResumeList from "../modules/CardsResume/OtherCardsResumeList/OtherCardsResumeList";
 
 const Pages = () => {
     const context = useAuth()
@@ -66,7 +66,7 @@ const Pages = () => {
                         {PrivateRoutes.map((route: IRoute, index) => (
                             <>
                                 <Route key={index} path={route.path} element={<route.element/>}/>
-                                <Route path="*" element={<AllListResumes/>}/>
+                                <Route path="*" element={<OtherCardsResumeList/>}/>
                             </>
 
                         ))}

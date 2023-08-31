@@ -9,7 +9,6 @@ import {useNavigate} from "react-router";
 import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
 import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector";
 import {store} from "../store/store";
-import {removeToken} from "../store/features/loginSlice";
 import {useAuth} from "../Context/AuthProvider";
 // import {useAuth} from "../Context/AuthProvider";
 // import {useAuth} from "../Context/AuthProvider";

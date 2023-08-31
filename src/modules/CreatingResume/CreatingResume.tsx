@@ -1,10 +1,11 @@
 import {useNavigate} from "react-router";
 import React, {useState} from "react";
 import {useAppDispatch} from "../../hooks/useTypedSelector";
-import {createProfileThunk, IProfileCreate} from "../../store/features/profilesSlice";
-import style from "../../../modules/AddingNewProfile/components/Input/style.module.css";
-import InputComp from "../../../modules/AddingNewProfile/components/Input/InputComp";
-import ButtonComp from "../../../components/Button/ButtonComp";
+import style from "../../components/Input/input.module.css";
+import {createResumeThunk, IProfileCreate} from "../CardsResume/CardsResumeApi/CardsApi";
+import InputComp from "../../components/Input/InputComp";
+import ButtonComp from "../../components/Button/ButtonComp";
+import {Col, Row} from "antd";
 
 const CreatingResume = () => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const CreatingResume = () => {
             workplace,
             stack,
         }
-        dispatch(createProfileThunk(newUser))
+        dispatch(createResumeThunk(newUser))
         setNick("")
         setFirstName("")
         setLastName("")
@@ -38,13 +39,31 @@ const CreatingResume = () => {
         navigate("/")
     }
     return (
-        <div className={style.list__inputs}>
-            <InputComp label={"Ник"} onChange={e => setNick(e.target.value)}/>
-            <InputComp label={"Имя"} onChange={e => setFirstName(e.target.value)}/>
-            <InputComp label={"Фамилия"} onChange={e => setLastName(e.target.value)}/>
-            <InputComp label={"Рабочее место"} onChange={e => setWorkplace(e.target.value)}/>
-            <InputComp label={"Основной инструмент"} onChange={e => setStack(e.target.value)}/>
-            <ButtonComp label={"Добавить"} onClick={toAddNewProfile}/>
-        </div>
+        <>
+            <Row gutter={[40, 40]}>
+                <Col span={12}>
+                    <InputComp label={"Ник"} onChange={(e: any) => setNick(e.target.value)}/>
+                </Col>
+                <Col span={12}>
+                    <InputComp label={"Имя"} onChange={(e: any) => setFirstName(e.target.value)}/>
+                </Col>
+                <Col span={12}>
+                    <InputComp label={"Рабочее место"} onChange={(e: any) => setWorkplace(e.target.value)}/>
+                </Col>
+                <Col span={12}>
+                    <InputComp label={"Фамилия"} onChange={(e: any) => setLastName(e.target.value)}/>
+                </Col>
+                <Col span={12}>
+                    <InputComp label={"Основной инструмент"} onChange={(e: any) => setStack(e.target.value)}/>
+                </Col>
+            </Row>
+            <Row style={{marginTop: 40}}>
+                <Col span={12}>
+                    <ButtonComp label={"Добавить"} onClick={toAddNewProfile}/>
+                </Col>
+            </Row>
+        </>
     )
 }
+
+export default CreatingResume;

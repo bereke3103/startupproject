@@ -1,5 +1,5 @@
 import {ChangeEventHandler} from "react";
-import style from './style.module.css'
+import style from './input.module.css'
 import {Input} from "antd";
 type InputProps = {
     onChange: ChangeEventHandler<HTMLInputElement>,

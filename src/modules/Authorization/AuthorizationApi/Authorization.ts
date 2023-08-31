@@ -61,6 +61,4 @@ export const AuthorizationSlice = createSlice({
             })
     }
 })
-
-export const {removeToken} = AuthorizationSlice.actions;
 export const authorizationReducer = AuthorizationSlice.reducer;

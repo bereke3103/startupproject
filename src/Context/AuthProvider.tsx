@@ -1,8 +1,8 @@
 import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector";
-import {ILogin, loginAsync} from "../store/features/loginSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector"
 import {useNavigate} from "react-router";
 import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
+import {authorizationThunk, ILogin} from "../modules/Authorization/AuthorizationApi/Authorization";
 
 interface IAuthContext {
     loginContext: string | null,
@@ -40,13 +40,13 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({children}) => {
     const navigate = useNavigate();
 
     const loginHandle = (userParams: ILogin) => {
-        dispatch(loginAsync(userParams)).unwrap().then((res) => {
+        dispatch(authorizationThunk(userParams)).unwrap().then((res) => {
             navigate(MAIN_PAGE)
             setTokenContext(res)
             setSuccessContext(true)
             setLoginContext(userParams.login);
 
-        }).catch((e) => {
+        }).catch((e: any) => {
             setSuccessContext(false)
             setTokenContext(null)
             setLoginContext(null);
