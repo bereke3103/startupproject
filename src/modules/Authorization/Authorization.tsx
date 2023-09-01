@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Button, Form, Input} from "antd";
-import {useAppSelector} from "../../hooks/useTypedSelector";
+import {useAppSelector} from "../../store/hooks/useTypedSelector";
 import style from './Authorization.module.css'
-import {useAuth} from "../../Context/AuthProvider";
+import {useAuth} from "../../context/AuthProvider";
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
 import {ILogin} from "./AuthorizationApi/Authorization";
 

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/useTypedSelector";
 import CommentItem from "../components/CommentItem/CommentItem";
 import {getCommentByUserIdByResumeIdThunk, ICommentRequest} from "../CommentApi/CommentApi";
+import {Col, Row} from "antd";
 
 export interface ICommentResponse {
     author: string,
@@ -17,7 +18,7 @@ export interface CommentProps {
     userId: number | undefined | null
 }
 
-const Comment: React.FC<CommentProps> = ({resumeId,userId}) => {
+const Comment: React.FC<CommentProps> = ({resumeId, userId}) => {
     const dispatch = useAppDispatch();
     const {commentsByUserId} = useAppSelector(state => state.comment);
 
@@ -33,12 +34,14 @@ const Comment: React.FC<CommentProps> = ({resumeId,userId}) => {
         })
     }, [dispatch, userId]);
     return (
-        <>
+        <Row gutter={[20, 20]}>
             {comments.map((c: ICommentResponse) => (
-                <CommentItem key={c.id} comment={c.comment} createdComment={c.createdComment} id={c.id} author={c.author}/>
-
+                <Col span={24}>
+                    <CommentItem key={c.id} comment={c.comment} createdComment={c.createdComment} id={c.id}
+                                 author={c.author}/>
+                </Col>
             ))}
-        </>
+        </Row>
     )
 }
 

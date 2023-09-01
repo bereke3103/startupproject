@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router";
 import React, {useState} from "react";
-import {useAppDispatch} from "../../hooks/useTypedSelector";
+import {useAppDispatch} from "../../store/hooks/useTypedSelector";
 import style from "../../components/Input/input.module.css";
 import {createResumeThunk, IProfileCreate} from "../CardsResume/CardsResumeApi/CardsApi";
 import InputComp from "../../components/Input/InputComp";

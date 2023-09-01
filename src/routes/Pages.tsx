@@ -1,7 +1,7 @@
 import {
     ADDING_NEW_PROFILE_PAGE,
     AUTH_PAGE,
-    IRoute, MAIN_PAGE, MY_LIST_RESUMES,
+    IRoute, MAIN_PAGE, MY_LIST_RESUMES, NEWS_PAGE,
     PrivateRoutes,
     REGISTRATION_PAGE
 } from "./routes";
@@ -9,8 +9,12 @@ import {Route, Routes} from "react-router";
 import React, {useEffect, useState} from "react";
 import Authorization from "../modules/Authorization/Authorization";
 import Registration from "../modules/Registration/Registration";
-import {useAuth} from "../Context/AuthProvider";
-import {UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import {useAuth} from "../context/AuthProvider";
+import {
+    FileMarkdownOutlined,
+    LineChartOutlined, PlusOutlined,
+    UserOutlined
+} from "@ant-design/icons";
 import Sidebar from "../shared/Sidebar";
 import OtherCardsResumeList from "../modules/CardsResume/OtherCardsResumeList/OtherCardsResumeList";
 
@@ -19,7 +23,6 @@ const Pages = () => {
     const [successPg, setSuccessPg] = useState<boolean | null>(context.successContext);
     const [tokenPg, setTokenPg] = useState<string | null>(context.tokenContext);
     useEffect(() => {
-        console.log(successPg)
         onLoadContext()
     }, [context.tokenContext, context.successContext, successPg])
 
@@ -53,13 +56,18 @@ const Pages = () => {
                     },
                     {
                         key: ADDING_NEW_PROFILE_PAGE,
-                        icon: <VideoCameraOutlined/>,
+                        icon: <PlusOutlined/>,
                         label: 'Добавить резюме',
                     },
                     {
                         key: MY_LIST_RESUMES,
-                        icon: <VideoCameraOutlined/>,
+                        icon: <FileMarkdownOutlined/>,
                         label: 'Мои резюме',
+                    },
+                    {
+                        key: NEWS_PAGE,
+                        icon: <LineChartOutlined/>,
+                        label: 'Новости',
                     }
                 ]}>
                     <Routes>

@@ -1,4 +1,4 @@
-import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/useTypedSelector";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {ADDING_NEW_PROFILE_PAGE} from "../../../routes/routes";

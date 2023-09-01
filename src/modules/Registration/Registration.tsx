@@ -4,7 +4,7 @@ import style from './Registration.module.css'
 import {useNavigate} from "react-router";
 import { AUTH_PAGE} from "../../routes/routes";
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
-import {useAppDispatch, useAppSelector} from "../../hooks/useTypedSelector";
+import {useAppDispatch, useAppSelector} from "../../store/hooks/useTypedSelector";
 import {IRegister, registerThunk} from "./RegistrationApi/RegistrationApi";
 
 type FieldType = {

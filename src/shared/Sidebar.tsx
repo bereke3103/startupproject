@@ -7,11 +7,11 @@ import {
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
-import {useAppDispatch, useAppSelector} from "../hooks/useTypedSelector";
+import {useAppDispatch, useAppSelector} from "../store/hooks/useTypedSelector";
 import {store} from "../store/store";
-import {useAuth} from "../Context/AuthProvider";
-// import {useAuth} from "../Context/AuthProvider";
-// import {useAuth} from "../Context/AuthProvider";
+import {useAuth} from "../context/AuthProvider";
+// import {useAuth} from "../context/AuthProvider";
+// import {useAuth} from "../context/AuthProvider";
 
 interface MenuItemProps {
     key: string,

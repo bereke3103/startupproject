@@ -1,8 +1,8 @@
-import {useAppDispatch, useAppSelector} from "../../../hooks/useTypedSelector";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/useTypedSelector";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import style from "../components/CardResumeItem/cardResumeItem.module.css";
-import {Space, Spin} from "antd";
+import {Col, Row, Space, Spin} from "antd";
 import {getResumeThunk, Resume} from "../CardsResumeApi/CardsApi";
 import CardsResumeItem from "../components/CardResumeItem/CardsResumeItem";
 
@@ -30,35 +30,70 @@ const OtherCardsResumeList = () => {
 
     return (
         <>
-            <div className="app container">
-                <div className={style.block_profiles}>
-                    <div className="title__block_profiles">
-                        <h1>Список резюме</h1>
-                    </div>
-                    {loading
+            <Row justify={'center'}>
+                <Col>
+                    <h1>Список резюме</h1>
+                </Col>
+            </Row>
+
+            <Row justify={'center'} style={{marginTop: "50px"}}>
+                {
+                    loading
                         ?
-                        <Space direction="vertical" style={{width: '100%'}}>
-                            <Spin tip="Loading" size="large">
-                                <div className="content"/>
-                            </Spin>
-                        </Space>
+                        <Col span={24}>
+                            <Space direction="vertical" style={{width: '100%'}}>
+                                <Spin tip="Loading" size="large">
+                                    <div className="content"/>
+                                </Spin>
+                            </Space>
+                        </Col>
                         :
-                        <div className={style.allProfile}>
-                            {allResumesData.map(resume => (
-                                <CardsResumeItem
-                                    toPersonalProfile={toPersonalProfile}
-                                    key={resume.id}
-                                    lastname={resume.lastname}
-                                    firstname={resume.firstname}
-                                    nickname={resume.nickname}
-                                    stack={resume.stack}
-                                    workplace={resume.workplace}
-                                    id={resume.id}/>
+                        <Row gutter={[20, 20]}>
+                            {allResumesData.map((resume) => (
+                                <Col span={6}>
+                                    <CardsResumeItem
+                                        toPersonalProfile={toPersonalProfile}
+                                        key={resume.id}
+                                        lastname={resume.lastname}
+                                        firstname={resume.firstname}
+                                        nickname={resume.nickname}
+                                        stack={resume.stack}
+                                        workplace={resume.workplace}
+                                        id={resume.id}/>
+                                </Col>
                             ))}
-                        </div>
-                    }
-                </div>
-            </div>
+                        </Row>
+                }
+            </Row>
+            {/*<div className="app container">*/}
+            {/*    <div className={style.block_profiles}>*/}
+            {/*        <div className="title__block_profiles">*/}
+            {/*            <h1>Список резюме</h1>*/}
+            {/*        </div>*/}
+            {/*        {loading*/}
+            {/*            ?*/}
+            {/*            <Space direction="vertical" style={{width: '100%'}}>*/}
+            {/*                <Spin tip="Loading" size="large">*/}
+            {/*                    <div className="content"/>*/}
+            {/*                </Spin>*/}
+            {/*            </Space>*/}
+            {/*            :*/}
+            {/*            <div className={style.allProfile}>*/}
+            {/*                {allResumesData.map(resume => (*/}
+            {/*                    <CardsResumeItem*/}
+            {/*                        toPersonalProfile={toPersonalProfile}*/}
+            {/*                        key={resume.id}*/}
+            {/*                        lastname={resume.lastname}*/}
+            {/*                        firstname={resume.firstname}*/}
+            {/*                        nickname={resume.nickname}*/}
+            {/*                        stack={resume.stack}*/}
+            {/*                        workplace={resume.workplace}*/}
+            {/*                        id={resume.id}/>*/}
+            {/*                ))}*/}
+            {/*            </div>*/}
+            {/*        }*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </>
     )
 }
