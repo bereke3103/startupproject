@@ -16,6 +16,7 @@
     "antd": "^5.8.4",
     "axios": "^1.4.0",
     "jwt-decode": "^3.1.2",
+    "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
@@ -31,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "npx prettier . --write"
   },
   "eslintConfig": {
     "extends": [

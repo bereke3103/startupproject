@@ -1,28 +1,28 @@
 .personal__block {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 50px;
-    margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+  margin-top: 50px;
 }
 
 .img_person {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
 .img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .person__info {
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
 }
 
 .info__person {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
