@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { useAppSelector } from "../../hooks/useTypedSelector";
 import style from "./Authorization.module.css";
 import { useAuth } from "../../Context/AuthProvider";
+=======
+import React, {useState} from 'react';
+import {Button, Form, Input} from "antd";
+import {useAppSelector} from "../../store/hooks/useTypedSelector";
+import style from './Authorization.module.css'
+import {useAuth} from "../../context/AuthProvider";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
 import { ILogin } from "./AuthorizationApi/Authorization";
 

@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 import { useParams } from "react-router";
 import React, { useEffect, useState } from "react";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../hooks/useTypedSelector";
+=======
+import {useParams} from "react-router";
+import React, {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/useTypedSelector";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 import style from "./personCard.module.css";
 import { getResumeByIdThunk } from "../CardsResumeApi/CardsApi";
 import {
@@ -41,6 +47,7 @@ const PersonCard = () => {
       comment: comment,
     };
 
+<<<<<<< HEAD
     console.log({ requestForCreatingComment });
     dispatch(creatingCommentByIdThunk(requestForCreatingComment)).then(
       (res) => {
@@ -96,6 +103,66 @@ const PersonCard = () => {
         </Col>
       </Row>
       {/*<div className={style.personal__block}>*/}
+=======
+        console.log({requestForCreatingComment})
+        dispatch(creatingCommentByIdThunk(requestForCreatingComment)).then((res) => {
+            setComment("");
+        })
+    }
+    return (
+        <>
+            <Row justify={'center'}>
+                <Row gutter={[400, 400]}>
+                    <Col span={12}>
+                        <div className={style.img_person}>
+                            <img className={style.img}
+                                 src="https://attractivecv.com/wp-content/uploads/2022/01/modele-de-cv-en-anglais-barcelone-bleu-207d-en.jpg"
+                                 alt=""/>
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className={style.person__info}>
+                            <div className={style.info__person}>
+                                <span><b>Никнейм:</b></span> <p>{userState.nickname}</p>
+                            </div>
+                            <div className={style.info__person}>
+                                <span><b>Имя:</b></span> <p>{userState.firstname}</p>
+                            </div>
+                            <div className={style.info__person}>
+                                <span><b>Фамилия:</b></span> <p>{userState.lastname}</p>
+                            </div>
+                            <div className={style.info__person}>
+                                <span><b>Рабочее место:</b></span> <p>{userState.workplace}</p>
+                            </div>
+                            <div className={style.info__person}>
+                                <span><b>Основные инструменты:</b></span> <p>{userState.stack}</p>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+            </Row>
+
+            <Row style={{marginTop: "35px"}}>
+                <Col span={24}>
+                    <Comment userId={numberUser} resumeId={Number(params.id)}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <AddingToComment
+                        userId={userState.id}
+                        authorResumeId={authorResumeId}
+                        setComment={setComment}
+                        comment={comment}
+                        toAddComment={toAddComment}/>
+                </Col>
+            </Row>
+
+
+        </>
+    )
+}
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 
       {/*   */}
       {/*</div>*/}

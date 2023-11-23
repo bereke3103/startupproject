@@ -4,6 +4,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AUTH_PAGE, MAIN_PAGE } from "../routes/routes";
@@ -12,6 +13,16 @@ import { store } from "../store/store";
 import { useAuth } from "../Context/AuthProvider";
 // import {useAuth} from "../Context/AuthProvider";
 // import {useAuth} from "../Context/AuthProvider";
+=======
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router";
+import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
+import {useAppDispatch, useAppSelector} from "../store/hooks/useTypedSelector";
+import {store} from "../store/store";
+import {useAuth} from "../context/AuthProvider";
+// import {useAuth} from "../context/AuthProvider";
+// import {useAuth} from "../context/AuthProvider";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 
 interface MenuItemProps {
   key: string;

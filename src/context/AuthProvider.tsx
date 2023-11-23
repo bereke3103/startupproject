@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/Context/AuthProvider.tsx
 import {
   createContext,
   PropsWithChildren,
@@ -12,6 +13,13 @@ import {
   authorizationThunk,
   ILogin,
 } from "../modules/Authorization/AuthorizationApi/Authorization";
+=======
+import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../store/hooks/useTypedSelector"
+import {useNavigate} from "react-router";
+import {AUTH_PAGE, MAIN_PAGE} from "../routes/routes";
+import {authorizationThunk, ILogin} from "../modules/Authorization/AuthorizationApi/Authorization";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c:src/context/AuthProvider.tsx
 
 interface IAuthContext {
   loginContext: string | null;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   useAppDispatch,
   useAppSelector,
@@ -5,6 +6,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ADDING_NEW_PROFILE_PAGE } from "../../../routes/routes";
+=======
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/useTypedSelector";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router";
+import {ADDING_NEW_PROFILE_PAGE} from "../../../routes/routes";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 import style from "../components/CardResumeItem/cardResumeItem.module.css";
 import { Space, Spin } from "antd";
 import { getResumesListByIdThunk, Resume } from "../CardsResumeApi/CardsApi";

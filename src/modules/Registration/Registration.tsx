@@ -4,8 +4,13 @@ import style from "./Registration.module.css";
 import { useNavigate } from "react-router";
 import { AUTH_PAGE } from "../../routes/routes";
 import PublicHeaderLink from "../../components/Header/components/PublicHeaderLink";
+<<<<<<< HEAD
 import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 import { IRegister, registerThunk } from "./RegistrationApi/RegistrationApi";
+=======
+import {useAppDispatch, useAppSelector} from "../../store/hooks/useTypedSelector";
+import {IRegister, registerThunk} from "./RegistrationApi/RegistrationApi";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 
 type FieldType = {
   login?: string;

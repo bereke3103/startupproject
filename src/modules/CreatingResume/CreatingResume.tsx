@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import { useAppDispatch } from "../../hooks/useTypedSelector";
+=======
+import {useNavigate} from "react-router";
+import React, {useState} from "react";
+import {useAppDispatch} from "../../store/hooks/useTypedSelector";
+>>>>>>> 7f1665a67bca0abfe09494e9406b6ff0b4dec54c
 import style from "../../components/Input/input.module.css";
 import {
   createResumeThunk,
